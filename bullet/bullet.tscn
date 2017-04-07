@@ -1,8 +1,12 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://bullet/bullet.png" type="Texture" id=1]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
+[sub_resource type="GDScript" id=1]
+
+script/source = "#bullet\n\nextends RigidBody2D\n\n# Member variables\nvar disabled = false\n\n\nfunc disable():\n\tif (disabled):\n\t\treturn\n\tget_node(\"anim\").play(\"shutdown\")\n\tdisabled = true\n\n\nfunc _ready():\n\tget_node(\"Timer\").start()\n"
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
 
 custom_solver_bias = 0.0
 points = Vector2Array( -12, -12, 8, -12, 8, 8, -12, 8, -12, -12 )
@@ -27,6 +31,7 @@ velocity/linear = Vector2( 0, 0 )
 velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
+script/script = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
@@ -36,7 +41,7 @@ texture = ExtResource( 1 )
 
 transform/pos = Vector2( 2, 2 )
 input/pickable = false
-shapes/0/shape = SubResource( 1 )
+shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -52,5 +57,12 @@ build_mode = 0
 polygon = Vector2Array( -12, -12, -12, 8, 8, 8, 8, -12, -12, -12 )
 shape_range = Vector2( 0, 0 )
 trigger = false
+
+[node name="Timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
 
 
