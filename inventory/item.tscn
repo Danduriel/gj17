@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "export(int) var speedup\nexport(int) var damage\nexport(int) var weaponrange\nexport(String) var name\nexport(int) var type\n\nexport(bool) var equipped\n\nfunc equip():\n\tif(equipped):\n\t\tprint(\"\")\n\t\tequipped = false\n\t\t\n\t\t#self.set_pos(pos)#\n\telse:\n\t\tequipped = true\n\t\tprint (\"equip()\")\n\t"
+
+[node name="item" type="TextureButton"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+script/script = SubResource( 1 )
+speedup = null
+damage = null
+weaponrange = null
+name = null
+type = null
+equipped = null
+
+
