@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://player/icon.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends RigidBody2D\n\nvar WALK_ACCEL = 800.0\nvar WALK_DEACCEL = 800.0\nvar WALK_MAX_VELOCITY = 200.0\n\nvar player_size\n\nvar direction = Vector2(1.0, 0.0) #right\n\nfunc _ready():\n\t# Called every time the node is added to the scene.\n\t# Initialization here\n\tplayer_size = get_node(\"player\").get_texture().get_size()\n\tset_fixed_process(true)\n\nfunc _integrate_forces(s):\n\t\n\tvar lv = s.get_linear_velocity()\n\tvar step = s.get_step()\n\t\n\tvar move_left = Input.is_action_pressed(\"move_left\")\n\tvar move_right = Input.is_action_pressed(\"move_right\")\n\tvar move_up = Input.is_action_pressed(\"move_up\")\n\tvar move_down = Input.is_action_pressed(\"move_down\")\n\t\n\t#var shoot = Input.is_action_pressed(\"shoot\")\n\n\tvar player_rect = Rect2( get_node(\"player\").get_pos() - player_size*0.5, player_size )\n\tvar player_pos = get_node(\"player\").get_pos()\n\t\n\t\n\tif (move_left and not move_right): #left\n\t\tif (lv.x > -WALK_MAX_VELOCITY):\n\t\t\tlv.x -= WALK_ACCEL*step\n\t\tdirection = Vector2(-1.0, 0.0)\n\telif (move_right and not move_left): #right\n\t\tif (lv.x < WALK_MAX_VELOCITY):\n\t\t\tlv.x += WALK_ACCEL*step\n\t\tdirection = Vector2(1.0, 0.0)\n\telif (move_down and not move_up): #down\n\t\tif (lv.y < WALK_MAX_VELOCITY):\n\t\t\tlv.y += WALK_ACCEL*step\n\t\tdirection = Vector2(0.0, 1.0)\n\telif (move_up and not move_down): #ip\n\t\tif (lv.y < WALK_MAX_VELOCITY):\n\t\t\tlv.y -= WALK_ACCEL*step\n\t\tdirection = Vector2(0.0, -1.0)\n\telse:\n\t\t\tvar xv = abs(lv.x)\n\t\t\tvar yv = abs(lv.y)\n\t\t\t\n\t\t\txv -= WALK_DEACCEL*step\n\t\t\tif (xv < 0):\n\t\t\t\txv = 0\n\t\t\tlv.x = sign(lv.x)*xv\n\t\t\t\n\t\t\tyv -= WALK_DEACCEL*step\n\t\t\tif (yv < 0):\n\t\t\t\tyv = 0\n\t\t\tlv.y = sign(lv.y)*yv\n\t\t\t\n\ts.set_linear_velocity(lv)"
+
+[node name="player" type="RigidBody2D"]
+
+transform/pos = Vector2( 4.91095, 6.13869 )
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+mode = 2
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = SubResource( 1 )
+
+[node name="player" type="Sprite" parent="."]
+
+transform/pos = Vector2( 131.368, 106.813 )
+texture = ExtResource( 1 )
+
+

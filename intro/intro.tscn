@@ -1,0 +1,116 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://font/avocado32.fnt" type="BitmapFont" id=1]
+[ext_resource path="res://intro/sounds/1_farbenfrohenkonfetti.ogg" type="AudioStream" id=2]
+[ext_resource path="res://intro/go_button.png" type="Texture" id=3]
+[ext_resource path="res://intro/go_button_hover.png" type="Texture" id=4]
+[ext_resource path="res://font/avocado500.fnt" type="BitmapFont" id=5]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "#export(String) var text = \"\"\nexport(String) var SoundPath = \"res://\"\nexport(String) var NextScenePath = \"res://\"\n\nonready var ANI = get_node(\"AnimationPlayer\")\n\nvar text = [\"Ein letztes mal wuerde er traurig sein. \\nDann wuerde es enden, seine Traurigkeit, sein Leben.\\nMit einem grossem BOOM wuerde er aus der Welt gehen. \\nMit vielen Farben, nicht fuer sich aber fuer alle anderen.\\nAlle wuerden sie staunen. \\nSie wuerden ihn nicht als Traurigen Guenter in Erinnerung halten sondern als Verrueckten Guenter und seinen Farbenfrohenkonfettiabgang\",\n\t\t\t\"Alles war vorbereitet. \\nDer Laser war aufgeladen, ausgerichtet und bereit ihn in Konfetti zu verwandeln.\\nEr musste nur noch den Knopf druecken und bis 10 zaehlen.\\nEin letztes mal atmete er tief ein und langsam wieder aus.\\nDies war sein Ausweg aus diesem Leben. Das einzig gute in seinem Leben war sein Ende.\\nCrazy Guenter drueckte den Knopf und zaehlte\",\n\t\t\t#\"testtest\",\n\t\t\t\"\",\n\t\t\t\"Ein Letztes mal schaute er auf seine Rechnungen.\",\n\t\t\t\"\",\n\t\t\t\"Es war dunkel aber er kannte sie alle auswendig.\",\n\t\t\t\"\",\n\t\t\t\"Sie waren Richtig!\",\n\t\t\t\"\",\n\t\t\t\"KLIRR!\\nEr sah den Laser. Er bewegte sich auf ihn zu. Wie in Zeitlupe kam er naeher und naeher.\\nUnd dann Passierte es.\\nDas Klirr geraeuch war nicht der Laser, es war das Fenster was zebrach. \\nEine Scherbe flog in den Laser und Lenkte den Laserstrahl nach draussen, dorthin wo die Kinder spielten. \\nDie gleichen Kinder die sein Fenster Kaputt gemacht hatten.\\nDer Laser traf den Metallbaseballschlaeger der Baseballspielenden Kinder und von dort flog er weiter nach oben.\\nCrazy Guenter wusste der Laser wuerde die Sonne treffen und von dort wuerde die Sonne 3 Tage lang\\ndie Erde mit seinem Konfettilaser bestrahlen.\",\n\t\t\t\"Jeder der in den naechsten 3 Tagen raus gehen wuerde, wuerde sich innerhalb von einem Tag in Konfetti verwandeln. Und zum groessten Unglueck begann heute die Woche der Sonne.\\nDie Windraeder die normalerweise Strom erzeugen wuerden, am Tag alle Wolken weg blasen,\\ndamit die Bewohner der Erde waehrend der Woche der Sonne, diese geniessen konnten.\",\n\t\t\t\"5 Tage hatte er seinen Keller nicht verlassen, sein schwarzes Shirt war voll mit Kruemeln von Keksen und Chips. \\nEinzelne MT. Dew Flecken waren auch noch zu erkennen. \\nSein Haar war fettig, seine Haut weiss, #FEDCBA weiss.\\nNoch waren die Augen zu, er wusste das es Woche der Sonne war, das draussen viel zu hell fuer seine Augen.\\nEr nahm die Haende vors Gesicht und oeffnet die Augen. Selbst mit den Haenden vor den Augen\\nverbrennt die Sonne seine Netzhaut. Langsam gewoehnte er sich an die Helligkeit in seinen Haenden.\\nVorsichtig breitete er seine Finger aus. Mehr Licht stroemte herein. Wieder wartet er bis das brennen\\nnachliess. Er ging aufs Ganze. 3 2 1, Er riss die Haende weg und...\",\n\t\t\t\"\"]\n\nvar startLaser\nvar startLaserHover\n\nvar goOn\nvar goOnHover\n\nvar sound_text2\nvar sound_count0\nvar sound_count1\n#var sound_count2\n\nvar scene = 0\n\nvar countdown_time = 0\n\nvar counting = false\n\nfunc _ready():\n\t# Called every time the node is added to the scene.\n\t# Initialization here\n\tget_node(\"label\").set_opacity(1)\n\tget_node(\"label\").add_text(text[scene])\n\tset_process(true)\n\n#func setText():\n#\tobj.get_node(\"RichTextLabel\").set_Text(text)\n\nfunc _process(delta):\n\tif(countdown_time > 0.5):\n\t\tif(counting):\n\t\t\tvar rounded_time = round(countdown_time-0.5)\n\t\t\tget_node(\"countdown\").set_text(str(rounded_time))\n\t\t\tcountdown_time-= delta\n\n\t\t\tif(countdown_time <= 7):\n\t\t\t\tif(scene == 2):\n\t\t\t\t\tnext()\n\t\t\t\telif(countdown_time <= 5):\n\t\t\t\t\tif(scene == 4):\n\t\t\t\t\t\tnext()\n\t\t\t\t\telif(countdown_time <= 3):\n\t\t\t\t\t\tif(scene == 6):\n\t\t\t\t\t\t\tnext()\n\t\t\t\t\n\t\telse:\n\t\t\t#wechsle Szene sobald Sprachtext vorbei\n\t\t\tif(!get_node(\"stream\").is_playing ( )):\n\t\t\t\tnext()\n\t#falls Countdown läuft aber <= 0 ist\n\telif(counting):\n\t\tnext()\n\nfunc _on_TextureButton_pressed():\n\tnext()\n\tpass # replace with function body\n\nfunc next():\n\tscene+=1\n\t#if(scene <= 1):\n\t#update text\n\t#ANI.play(\"fade_out\")#\n\t\n\tget_node(\"label\").clear()\n\tget_node(\"label\").set_opacity(0)\n\tget_node(\"label\").add_text(text[scene])\n\tANI.play(\"fade_in\")\n\t\n\tif(scene == 1):\n\t\t\n\t\t#update buttons\n\t\tstartLaser = load(\"res://intro/launch_laser.png\")\n\t\tstartLaserHover = load(\"res://intro/launch_laser_hover.png\")\n\t\tget_node(\"button\").set_normal_texture(startLaser)\n\t\tget_node(\"button\").set_hover_texture(startLaserHover)\n\t\t\n\t\t#update sound\n\t\tsound_text2 = load(\"res://intro/sounds/2_teil_2.ogg\")\n\t\tget_node(\"stream\").set_stream(sound_text2)\n\t\tget_node(\"stream\").play()\n\t\n\tif(scene == 2):\n\t\tcountdown_time = 11\n\t\tcounting = true\n\t\t\n\t\t#blende button aus\n\t\tget_node(\"button\").hide()\n\t\t#update sound\n\t\tsound_count0 = load(\"res://intro/sounds/countdown/sieven.ogg\")\n\t\tget_node(\"stream\").set_stream(sound_count0)\n\t\tget_node(\"stream\").play()\t\n\t\t\n\tif(scene == 3):\n\t\t#ANI.play(\"fade_in\")\n\t\tcounting = false\n\t\t#update sound\n\t\tsound_count1 = load(\"res://intro/sounds/countdown/Rechnungen.ogg\")\n\t\tget_node(\"stream\").set_stream(sound_count1)\n\t\tget_node(\"stream\").play()\t\n\t\n\tif(scene == 4):\n\t\tcounting = true\n\t\t#update sound\n\t\tsound_count0 = load(\"res://intro/sounds/countdown/6,5.ogg\")\n\t\tget_node(\"stream\").set_stream(sound_count0)\n\t\tget_node(\"stream\").play()\n\tif(scene == 5):\n\t\tcounting = false\n\t\t#update sound\n\t\tsound_count1 = load(\"res://intro/sounds/countdown/dunkel_aber_auswendig.ogg\")\n\t\tget_node(\"stream\").set_stream(sound_count1)\n\t\tget_node(\"stream\").play()\t\n\t\n\tif(scene == 6):\n\t\tcounting = true\n\t\t#update sound\n\t\tsound_count0 = load(\"res://intro/sounds/countdown/4,3.ogg\")\n\t\tget_node(\"stream\").set_stream(sound_count0)\n\t\tget_node(\"stream\").play()\n\tif(scene == 7):\n\t\tcounting = false\n\t\t#update sound\n\t\tsound_count1 = load(\"res://intro/sounds/countdown/alle_richtig.ogg\")\n\t\tget_node(\"stream\").set_stream(sound_count1)\n\t\tget_node(\"stream\").play()\t\n\t\n\tif(scene == 8):\n\t\tcounting = true\n\t\t#update sound\n\t\tsound_count0 = load(\"res://intro/sounds/countdown/2,1.ogg\")\n\t\tget_node(\"stream\").set_stream(sound_count0)\n\t\tget_node(\"stream\").play()\n\tif(scene == 9):\n\t\t#ANI.play(\"color\")\n\t\tcounting = false\n\t\t#blende countdown aus\n\t\tget_node(\"countdown\").hide()\n\t\t\n\t\t\n\t\t#update buttons\n\t\tgoOn = load(\"res://intro/go_button.png\")\n\t\tgoOnHover = load(\"res://intro/go_button_hover.png\")\n\t\tget_node(\"button\").set_normal_texture(goOn)\n\t\tget_node(\"button\").set_hover_texture(goOnHover)\n\t\t#blende button ein\n\t\tget_node(\"button\").show()\n\t\t\n\t\t#update sound\n\t\tsound_count1 = load(\"res://intro/sounds/3_klir_the_best_sound_in _ze_woerld.ogg\")\n\t\tget_node(\"stream\").set_stream(sound_count1)\n\t\tget_node(\"stream\").play()\n\t\n\tif(scene == 10):\n\t\t#ANI.play(\"color\")\n\t\t#update sound\n\t\tsound_count1 = load(\"res://intro/sounds/4_wolken_blasen.ogg\")\n\t\tget_node(\"stream\").set_stream(sound_count1)\n\t\tget_node(\"stream\").play()\n\t\t\n\tif(scene == 13):\n\t\t#nächste Scene\n\t\tget_tree().change_scene(\"res://player/player.tscn\")"
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "fade_in"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("label:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 0.0, 1.0 ] }
+
+[sub_resource type="Animation" id=3]
+
+resource/name = "fade_out"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("label:visibility/opacity")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ 1.0, 0.0 ] }
+
+[node name="intro" type="Node"]
+
+script/script = SubResource( 1 )
+SoundPath = "test"
+NextScenePath = "res://"
+
+[node name="label" type="RichTextLabel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+size_flags/stretch_ratio = 2.0
+margin/left = 80.0
+margin/top = 56.0
+margin/right = 978.0
+margin/bottom = 433.0
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+
+[node name="stream" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 2 )
+stream/play = true
+stream/loop = false
+stream/volume_db = 1.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 2000
+
+[node name="button" type="TextureButton" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 488.0
+margin/top = 484.0
+margin/right = 551.0
+margin/bottom = 516.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 3 )
+textures/hover = ExtResource( 4 )
+
+[node name="countdown" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 423.0
+margin/top = 119.0
+margin/right = 749.0
+margin/bottom = 416.0
+custom_fonts/font = ExtResource( 5 )
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/fade_in = SubResource( 2 )
+anims/fade_out = SubResource( 3 )
+next/fade_out = ""
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "fade_in"
+
+[connection signal="pressed" from="button" to="." method="_on_TextureButton_pressed"]
+
+
