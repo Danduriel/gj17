@@ -1,17 +1,11 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://inventory/Front.png" type="Texture" id=1]
 [ext_resource path="res://inventory/item.tscn" type="PackedScene" id=2]
-[ext_resource path="res://inventory/item1.png" type="Texture" id=3]
 
 [sub_resource type="GDScript" id=1]
 
-script/source = "var itemtextures\n\nvar itemClass = preload(\"res://inventory/item.tscn\")\n\nvar texturebutton \nvar texture_cola\n\n#Anzahl verschiedener Items\nvar numberOfButtons = 5\n\nfunc _ready():\n\titemClass = preload(\"res://inventory/item.tscn\")\n\t\n\titemtextures = load(\"res://inventory/item-zusammen.png\")\n\t\n\taddRandomItem()\n\taddRandomItem()\n\taddRandomItem()\n\taddRandomItem()\n\taddRandomItem()\n\taddRandomItem()\n\taddRandomItem()\n\t\n#\ttexture_cola = AtlasTexture.new()\n#\ttexture_cola.set_atlas(itemtextures)#\n#\ttexture_cola.set_region(Rect2(0,0,60,60))\n#\ttexturebutton = itemClass.instance()\n#\ttexturebutton.connect(\"pressed\", texturebutton, \"equip\")\n#\ttexturebutton.set_normal_texture(texture_cola)\n#\taddButton(texturebutton)\n#\tprint(\"test\")\n\nfunc addRandomItem():\n\tvar nr = randi()% numberOfButtons\n\tvar texture = AtlasTexture.new()\n\ttexture.set_atlas(itemtextures)\n\ttexture.set_region(getTextureRect(nr))\n\tvar button = itemClass.instance()\n\tbutton.connect(\"pressed\", button, \"equip\")\n\tbutton.set_normal_texture(texture)\n\taddButton(button)\n\nfunc getTextureRect(nummer):\n\tvar x= nummer % 3 * 60\n\tvar y = nummer /3 * 60\n\treturn Rect2(x,y,60,60)\n\nfunc addButton(button):\n\tget_node(\"btngroup\").get_node(\"grid\").add_child(button)\n\nfunc getStats():\n\tprint(\"stats\") #TODO"
-
-[sub_resource type="AtlasTexture" id=2]
-
-region = Rect2( 0, 0, 0, 0 )
-margin = Rect2( 0, 0, 0, 0 )
+script/source = "var itemtextures\n\nvar itemClass = preload(\"res://inventory/item.tscn\")\n\nvar names = [\"Coke\",\n\t\t\t\"Chips\",\n\t\t\t\"Mt. Dew\",\n\t\t\t\"Eis\",\n\t\t\t\"Fanta\"]\n\n#Anzahl verschiedener Items\nvar numberOfButtons = 5\n\nfunc _ready():\n\titemClass = preload(\"res://inventory/item.tscn\")\n\t\n\titemtextures = load(\"res://inventory/item-zusammen.png\")\n\t\n\taddRandomItem()\n\taddRandomItem()\n\taddRandomItem()\n\taddRandomItem()\n\taddRandomItem()\n\taddRandomItem()\n\taddRandomItem()\n\taddRandomItem()\n\t\n\nfunc addRandomItem():\n\tvar nr = randi()% numberOfButtons\n\tvar texture = AtlasTexture.new()\n\ttexture.set_atlas(itemtextures)\n\ttexture.set_region(getTextureRect(nr))\n\tvar button = itemClass.instance()\n\tbutton.connect(\"pressed\", button, \"equip\")\n\tbutton.set_normal_texture(texture)\n\tbutton.setName(names[nr])\n\t#button.set_tooltip(names[nr])\n\taddButton(button)\n\nfunc getTextureRect(nummer):\n\tvar x= nummer % 3 * 60\n\tvar y = nummer /3 * 60\n\treturn Rect2(x,y,60,60)\n\nfunc addButton(button):\n\tget_node(\"btngroup\").get_node(\"grid\").add_child(button)\n\nfunc getStats():\n\tprint(\"stats\") #TODO"
 
 [node name="Node" type="Node"]
 
@@ -44,62 +38,15 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 346.0
-margin/bottom = 124.0
+margin/bottom = 0.0
 columns = 5
 
-[node name="item0" parent="btngroup/grid" instance=ExtResource( 2 )]
+[node name="item" parent="btngroup/grid" instance=ExtResource( 2 )]
 
-margin/right = 60.0
-margin/bottom = 60.0
+hint/tooltip = "test test\n"
 toggle_mode = true
 click_on_press = true
-textures/normal = SubResource( 2 )
-
-[node name="item1" parent="btngroup/grid" instance=ExtResource( 2 )]
-
-margin/left = 64.0
-margin/right = 124.0
-margin/bottom = 60.0
-toggle_mode = true
-click_on_press = true
-textures/normal = ExtResource( 3 )
-
-[node name="item2" parent="btngroup/grid" instance=ExtResource( 2 )]
-
-margin/left = 128.0
-margin/right = 188.0
-margin/bottom = 60.0
-toggle_mode = true
-click_on_press = true
-textures/normal = ExtResource( 3 )
-
-[node name="item3" parent="btngroup/grid" instance=ExtResource( 2 )]
-
-margin/left = 192.0
-margin/right = 252.0
-margin/bottom = 60.0
-toggle_mode = true
-click_on_press = true
-textures/normal = ExtResource( 3 )
-
-[node name="item4" parent="btngroup/grid" instance=ExtResource( 2 )]
-
-margin/left = 256.0
-margin/right = 316.0
-margin/bottom = 60.0
-toggle_mode = true
-click_on_press = true
-textures/normal = ExtResource( 3 )
-
-[node name="item5" parent="btngroup/grid" instance=ExtResource( 2 )]
-
-margin/top = 64.0
-margin/right = 60.0
-margin/bottom = 124.0
-toggle_mode = true
-click_on_press = true
-textures/normal = ExtResource( 3 )
-
-[connection signal="pressed" from="btngroup/grid/item0" to="." method="_on_item0_pressed"]
+name = "ller"
+equipped = false
 
 
