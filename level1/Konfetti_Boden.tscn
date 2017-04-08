@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=1]
+[gd_scene load_steps=14 format=1]
 
-[ext_resource path="res://zusammen.tex" type="Texture" id=1]
-[ext_resource path="res://level1/zusammen.tex" type="Texture" id=2]
+[ext_resource path="res://level1/zusammen.tex" type="Texture" id=1]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -77,7 +76,7 @@ region_rect = Rect2( 0, 0, 64, 64 )
 [node name="Boden" type="Sprite" parent="."]
 
 transform/pos = Vector2( 311.855, 15.5073 )
-texture = ExtResource( 2 )
+texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 64, 0, 64, 64 )
 
@@ -85,7 +84,7 @@ region_rect = Rect2( 64, 0, 64, 64 )
 
 editor/display_folded = true
 transform/pos = Vector2( -204.963, 12.1113 )
-texture = ExtResource( 2 )
+texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 0, 64, 64, 64 )
 

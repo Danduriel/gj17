@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=1]
 
-[ext_resource path="res://Konfetti-Boden.res" type="TileSet" id=1]
+[ext_resource path="res://level1/Konfetti-Boden.res" type="TileSet" id=1]
 
-[node name="tilemalen" type="Node2D"]
+[node name="level1" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 
