@@ -1,5 +1,61 @@
-[gd_scene format=1]
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://intro/sounds/1_farbenfrohenkonfetti.ogg" type="AudioStream" id=1]
+[ext_resource path="res://intro/go_button.png" type="Texture" id=2]
+[ext_resource path="res://intro/go_button_hover.png" type="Texture" id=3]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "#export(String) var text = \"\"\nexport(String) var SoundPath = \"res://\"\nexport(String) var NextScenePath = \"res://\"\n\nvar text = [\"Ein letztes mal wuerde er traurig sein. \\nDann wuerde es enden, seine Traurigkeit, sein Leben.\\nMit einem grossem BOOM wuerde er aus der Welt gehen. \\nMit vielen Farben, nicht fuer sich aber fuer alle anderen.\\nAlle wuerden sie staunen. \\nSie wuerden ihn nicht als Traurigen Guenter in Erinnerung halten sondern als Verrueckten Guenter und seinen Farbenfrohenkonfettiabgang\",\"Alles war vorbereitet. \\nDer Laser war aufgeladen, ausgerichtet und bereit ihn in Konfetti zu verwandeln.\\nEr musste nur noch den Knopf druecken und bis 10 zaehlen.\\nEin letztes mal atmete er tief ein und langsam wieder aus.\\nDies war sein Ausweg aus diesem Leben. Das einzig gute in seinem Leben war sein Ende.\\nCrazy Guenter drueckte den Knopf und zaehlte\"]\nvar startLaser\nvar startLaserHover\n\nvar sound_text2\n\nvar scene = 0\n\nfunc _ready():\n\t# Called every time the node is added to the scene.\n\t# Initialization here\n\tget_node(\"label\").add_text(text[scene])\n\tset_process(true)\n\n#func setText():\n#\tobj.get_node(\"RichTextLabel\").set_Text(text)\n\nfunc _on_TextureButton_pressed():\n\tnext()\n\tpass # replace with function body\n\nfunc next():\n\tscene+=1\n\tif(scene <= 1):\n\t\t#update text\n\t\tget_node(\"label\").clear()\n\t\tget_node(\"label\").add_text(text[scene])\n\tif(scene == 1):\n\t\t#update buttons\n\t\tstartLaser = load(\"res://intro/launch_laser.png\")\n\t\tstartLaserHover = load(\"res://intro/launch_laser_hover.png\")\n\t\tget_node(\"button\").set_normal_texture(startLaser)\n\t\tget_node(\"button\").set_hover_texture(startLaserHover)\n\t\t\n\t\t#update sound\n\t\tsound_text2 = load(\"res://intro/sounds/2_teil_2.ogg\")\n\t\tget_node(\"stream\").set_stream(sound_text2)\n\t\tget_node(\"stream\").play()\n\t\n\tif(scene == 2):\n\t\t#nächste Scene\n\t\tget_tree().change_scene(\"res://player/player.tscn\")"
 
 [node name="intro" type="Node"]
+
+script/script = SubResource( 1 )
+SoundPath = "test"
+NextScenePath = "res://"
+
+[node name="label" type="RichTextLabel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+size_flags/stretch_ratio = 2.0
+margin/left = 230.0
+margin/top = 56.0
+margin/right = 864.0
+margin/bottom = 433.0
+bbcode/enabled = false
+bbcode/bbcode = ""
+visible_characters = -1
+
+[node name="stream" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 1 )
+stream/play = true
+stream/loop = false
+stream/volume_db = 1.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 2000
+
+[node name="button" type="TextureButton" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 488.0
+margin/top = 484.0
+margin/right = 551.0
+margin/bottom = 516.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 2 )
+textures/hover = ExtResource( 3 )
+
+[connection signal="pressed" from="button" to="." method="_on_TextureButton_pressed"]
 
 
