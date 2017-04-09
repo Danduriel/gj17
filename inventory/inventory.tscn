@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://inventory/Front.png" type="Texture" id=1]
 [ext_resource path="res://inventory/menu_button_bak.png" type="Texture" id=2]
-[ext_resource path="res://inventory/item.tscn" type="PackedScene" id=3]
 
 [sub_resource type="GDScript" id=1]
 
@@ -57,14 +56,6 @@ margin/top = 0.0
 margin/right = 346.0
 margin/bottom = 0.0
 columns = 5
-
-[node name="item" parent="btngroup/grid" instance=ExtResource( 3 )]
-
-hint/tooltip = "test test\n"
-toggle_mode = true
-click_on_press = true
-name = "ller"
-equipped = false
 
 [connection signal="pressed" from="Control" to="." method="_on_Control_pressed"]
 
