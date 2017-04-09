@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://container/Crate.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "var containertextures = load(\"res://container/all.png\")\nvar numberOfDifContainer = 3\n\nfunc _ready():\n\tset_texture()\n\tprint(\"\")\n\t\nfunc set_texture():\n\trandomize()\n\tvar nr = randi()% numberOfDifContainer\n\tvar texture = AtlasTexture.new()\n\ttexture.set_atlas(containertextures)\n\t#texture.set_region(Rect2(0,0,60,60))\n\ttexture.set_region(getTextureRect(nr))\n\tget_node(\"sprite\").set_texture(texture)\n\n\n\nfunc getTextureRect(nummer):\n\tvar x= nummer % 3 * 60\n\tvar y = 0\n\treturn Rect2(x,y,60,60)"
+
+[node name="container" type="Area2D"]
+
+input/pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = SubResource( 1 )
+
+[node name="sprite" type="Sprite" parent="."]
+
+transform/pos = Vector2( 133.429, 115.807 )
+texture = ExtResource( 1 )
+
+
