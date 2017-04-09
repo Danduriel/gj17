@@ -90,7 +90,11 @@ _update_shape_index = 0
 
 [node name="camera" type="Camera2D" parent="."]
 
+<<<<<<< HEAD
 transform/pos = Vector2( 516.019, 302.421 )
+=======
+transform/pos = Vector2( -0.263664, 0.526989 )
+>>>>>>> f81d43e586f2317969be5e7fc407b700006785f6
 anchor_mode = 1
 rotating = false
 current = true
@@ -98,6 +102,7 @@ zoom = Vector2( 1, 1 )
 limit/left = -1000000
 limit/top = -1000000
 limit/right = 1000000
+
 limit/bottom = 1000000
 drag_margin/h_enabled = true
 drag_margin/v_enabled = true
