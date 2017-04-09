@@ -303,8 +303,7 @@ __meta__ = { "_edit_lock_":true }
 
 [node name="Wand-Rechts" type="Sprite" parent="."]
 
-editor/display_folded = true
-transform/pos = Vector2( 124.111, -56.8815 )
+transform/pos = Vector2( 136.698, -35.5529 )
 texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 192, 0, 64, 64 )
@@ -313,7 +312,7 @@ region_rect = Rect2( 192, 0, 64, 64 )
 
 input/pickable = false
 shapes/0/shape = SubResource( 9 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/transform = Matrix32( 0.810582, 0, 0, 1, 6.42661, -3.8147e-06 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -325,6 +324,8 @@ __meta__ = { "_edit_lock_":true }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wand-Rechts/StaticBody2D"]
 
+transform/pos = Vector2( 6.42661, -3.8147e-06 )
+transform/scale = Vector2( 0.810582, 1 )
 build_mode = 0
 polygon = Vector2Array( 31.7004, -32.1951, 31.8942, 31.9234, 25.1143, 31.9234, 25.1143, -32.1951 )
 shape_range = Vector2( 0, 0 )
