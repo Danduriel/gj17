@@ -1,13 +1,11 @@
-
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://player/inventory.png" type="Texture" id=1]
 [ext_resource path="res://inventory/inventory.tscn" type="PackedScene" id=2]
 [ext_resource path="res://inventory/white.png" type="Texture" id=3]
 [ext_resource path="res://player/icon.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/Hintergrund/PNG/zusammen2.png" type="Texture" id=5]
-[ext_resource path="res://sounfs/pew1.ogg" type="AudioStream" id=5]
-
+[ext_resource path="res://sounfs/pew1.ogg" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -185,7 +183,7 @@ transform/pos = Vector2( -555.263, -297.351 )
 
 [node name="shoot" type="StreamPlayer" parent="."]
 
-stream/stream = ExtResource( 5 )
+stream/stream = ExtResource( 6 )
 stream/play = false
 stream/loop = false
 stream/volume_db = 0.0
