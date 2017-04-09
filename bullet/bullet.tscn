@@ -38,12 +38,15 @@ tracks/2/keys = { "times":FloatArray( 0.9 ), "transitions":FloatArray( 1 ), "val
 offsets = FloatArray( 0, 0.109453, 0.328358, 0.626866, 0.860696, 0.920398, 1 )
 colors = ColorArray( 0, 0, 0, 1, 0.996094, 0, 0, 1, 1, 1, 1, 1, 0.23524, 0.789062, 0.138702, 1, 0.283582, 0.283582, 0.283582, 1, 0.590618, 0.590618, 0.590618, 1, 0.110092, 0.181364, 0.761719, 1 )
 
-[node name="bullet" type="RigidBody2D"]
+[node name="bullet" type="RigidBody2D" groups=[ "bullet" ]]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
+shapes/1/shape = SubResource( 1 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = true
 collision/layers = 1
 collision/mask = 1
 mode = 0
@@ -72,6 +75,12 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
+
+[node name="trigger" type="CollisionShape2D" parent="."]
+
+shape = SubResource( 1 )
+trigger = true
+_update_shape_index = 1
 
 [node name="bulletanim" type="AnimationPlayer" parent="."]
 
