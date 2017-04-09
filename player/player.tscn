@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://player/inventory.png" type="Texture" id=1]
 [ext_resource path="res://inventory/inventory.tscn" type="PackedScene" id=2]
 [ext_resource path="res://inventory/white.png" type="Texture" id=3]
 [ext_resource path="res://player/icon.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Hintergrund/PNG/zusammen2.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -36,7 +37,7 @@ draw_center = true
 transform/pos = Vector2( 555.428, 297.246 )
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 3.25823, 0, 0, 3.24878, -555.268, -297.38 )
+shapes/0/transform = Matrix32( 2.54114, 0, 0, 2.53377, -555.668, -296.981 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -122,12 +123,15 @@ percent/visible = true
 [node name="player" type="Sprite" parent="."]
 
 transform/pos = Vector2( -555.263, -297.351 )
-texture = ExtResource( 4 )
+transform/scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 5 )
+region = true
+region_rect = Rect2( 0, 256, 64, 64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( -555.268, -297.38 )
-transform/scale = Vector2( 3.25823, 3.24878 )
+transform/pos = Vector2( -555.668, -296.981 )
+transform/scale = Vector2( 2.54114, 2.53377 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -156,7 +160,7 @@ drag_margin/bottom = 0.2
 
 input/pickable = true
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 3.25823, 0, 0, 3.24878, -555.629, -297.576 )
+shapes/0/transform = Matrix32( 2.56866, 0, 0, 2.56121, -555.393, -296.862 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -165,8 +169,8 @@ angular_damp = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 
-transform/pos = Vector2( -555.629, -297.576 )
-transform/scale = Vector2( 3.25823, 3.24878 )
+transform/pos = Vector2( -555.393, -296.862 )
+transform/scale = Vector2( 2.56866, 2.56121 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
