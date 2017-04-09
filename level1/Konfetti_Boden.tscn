@@ -1,7 +1,9 @@
-[gd_scene load_steps=32 format=1]
+[gd_scene load_steps=34 format=1]
 
 [ext_resource path="res://level1/zusammen.png" type="Texture" id=1]
-[ext_resource path="res://level1/Boden_neu.res" type="TileSet" id=2]
+[ext_resource path="res://Sprites/Hintergrund/PNG/zusammen2.png" type="Texture" id=2]
+[ext_resource path="res://level1/zusammen2.png" type="Texture" id=3]
+[ext_resource path="res://level1/Boden_neu.res" type="TileSet" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -43,6 +45,11 @@ points = Vector2Array( 31.9232, -32.1787, 32.081, 32.0375, 25.2965, 32.0375, 25.
 custom_solver_bias = 0.0
 points = Vector2Array( -31.9774, -32.0209, 31.9232, -32.1787, 25.2965, -25.8675, -31.9774, -25.8675 )
 
+[sub_resource type="ConvexPolygonShape2D" id=13]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -31.6789, -32.2319, 31.4147, -32.2319, 31.7731, 31.5786, -32.0374, 31.5786 )
+
 [sub_resource type="ConvexPolygonShape2D" id=9]
 
 custom_solver_bias = 0.0
@@ -63,11 +70,6 @@ points = Vector2Array( -33.0437, 25.9443, 30.9554, 26.0728, 30.9554, 31.9843, -3
 custom_solver_bias = 0.0
 points = Vector2Array( -25.8669, -31.9581, -25.8669, 31.9425, -32.1781, 31.9425, -32.1781, -31.9581 )
 
-[sub_resource type="ConvexPolygonShape2D" id=13]
-
-custom_solver_bias = 0.0
-points = Vector2Array( -31.6789, -32.2319, 31.4147, -32.2319, 31.7731, 31.5786, -32.0374, 31.5786 )
-
 [sub_resource type="ConvexPolygonShape2D" id=14]
 
 custom_solver_bias = 0.0
@@ -83,21 +85,6 @@ points = Vector2Array( -22.85, -25.639, -32.0795, -32.0782, 32.0975, -31.8635, 2
 custom_solver_bias = 0.0
 points = Vector2Array( 22.4388, -25.639, 32.0975, -31.8635, 32.0975, 31.0256, 22.6534, 31.0256 )
 
-[sub_resource type="ConvexPolygonShape2D" id=17]
-
-custom_solver_bias = 0.0
-points = Vector2Array( -24.0015, 22.2762, 31.8878, 22.0383, 31.8878, 32.027, -32.0876, 32.027 )
-
-[sub_resource type="ConvexPolygonShape2D" id=18]
-
-custom_solver_bias = 0.0
-points = Vector2Array( -24.0015, 22.2762, -32.0876, 32.027, -32.0876, -32.424, -24.0015, -25.5271 )
-
-[sub_resource type="ConvexPolygonShape2D" id=19]
-
-custom_solver_bias = 0.0
-points = Vector2Array( -24.0015, -25.5271, -32.0876, -32.424, 31.65, -31.9484, 31.65, -25.5271 )
-
 [sub_resource type="ConvexPolygonShape2D" id=20]
 
 custom_solver_bias = 0.0
@@ -112,6 +99,21 @@ points = Vector2Array( 23.246, 23.2373, 31.963, 31.7606, -31.9618, 31.7606, -22.
 
 custom_solver_bias = 0.0
 points = Vector2Array( -22.6636, 23.2373, -31.9618, 31.7606, -31.9618, -31.9705, -23.051, -31.9705 )
+
+[sub_resource type="ConvexPolygonShape2D" id=17]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -24.0015, 22.2762, 31.8878, 22.0383, 31.8878, 32.027, -32.0876, 32.027 )
+
+[sub_resource type="ConvexPolygonShape2D" id=18]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -24.0015, 22.2762, -32.0876, 32.027, -32.0876, -32.424, -24.0015, -25.5271 )
+
+[sub_resource type="ConvexPolygonShape2D" id=19]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -24.0015, -25.5271, -32.0876, -32.424, 31.65, -31.9484, 31.65, -25.5271 )
 
 [sub_resource type="ConvexPolygonShape2D" id=23]
 
@@ -159,18 +161,46 @@ texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 64, 0, 64, 64 )
 
+[node name="Loch" type="Sprite" parent="."]
+
+transform/pos = Vector2( 282.047, 49.4675 )
+texture = ExtResource( 2 )
+region = true
+region_rect = Rect2( 128, 192, 64, 64 )
+
 [node name="Boden" type="Sprite" parent="."]
 
 transform/pos = Vector2( 372.943, -52.9112 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 0, 0, 64, 64 )
+
+[node name="Boden-Grau" type="Sprite" parent="."]
+
+transform/pos = Vector2( 311.843, 152.095 )
+texture = ExtResource( 3 )
+region = true
+region_rect = Rect2( 128, 256, 64, 64 )
+
+[node name="Boden-Grau-Braun" type="Sprite" parent="."]
+
+transform/pos = Vector2( 387.653, 153.9 )
+texture = ExtResource( 3 )
+region = true
+region_rect = Rect2( 192, 256, 64, 64 )
+
+[node name="Boden-Braun" type="Sprite" parent="."]
+
+transform/pos = Vector2( 466.171, 150.29 )
+texture = ExtResource( 3 )
+region = true
+region_rect = Rect2( 256, 256, 64, 64 )
 
 [node name="Ecke-Links-Unten" type="Sprite" parent="."]
 
 editor/display_folded = true
 transform/pos = Vector2( -207.407, 44.6916 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 192, 64, 64, 64 )
 
@@ -204,8 +234,8 @@ __meta__ = { "_edit_lock_":true }
 [node name="Ecke-Links-Oben" type="Sprite" parent="."]
 
 editor/display_folded = true
-transform/pos = Vector2( -215.613, -48.4656 )
-texture = ExtResource( 1 )
+transform/pos = Vector2( -214.505, -48.4656 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 256, 64, 64, 64 )
 
@@ -238,7 +268,7 @@ __meta__ = { "_edit_lock_":true }
 
 editor/display_folded = true
 transform/pos = Vector2( -98.4639, 42.1119 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 128, 64, 64, 64 )
 
@@ -272,7 +302,7 @@ __meta__ = { "_edit_lock_":true }
 
 editor/display_folded = true
 transform/pos = Vector2( -102.632, -45.2049 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 64, 64, 64, 64 )
 
@@ -301,10 +331,41 @@ shape_range = Vector2( 0, 1 )
 trigger = false
 __meta__ = { "_edit_lock_":true }
 
+[node name="Wand" type="Sprite" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 377.583, 33.301 )
+texture = ExtResource( 2 )
+region = true
+region_rect = Rect2( 64, 192, 64, 64 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wand"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 13 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+__meta__ = { "_edit_lock_":true }
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wand/StaticBody2D"]
+
+build_mode = 0
+polygon = Vector2Array( -31.6789, -32.2319, 31.4147, -32.2319, 31.7731, 31.5786, -32.0374, 31.5786 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+__meta__ = { "_edit_lock_":true }
+
 [node name="Wand-Rechts" type="Sprite" parent="."]
 
+editor/display_folded = true
 transform/pos = Vector2( 136.698, -35.5529 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 192, 0, 64, 64 )
 
@@ -336,7 +397,7 @@ __meta__ = { "_edit_lock_":true }
 
 editor/display_folded = true
 transform/pos = Vector2( 5.62046, -52.9133 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 128, 0, 64, 64 )
 
@@ -366,7 +427,7 @@ __meta__ = { "_edit_lock_":true }
 
 editor/display_folded = true
 transform/pos = Vector2( 11.9676, 40.5335 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 256, 0, 64, 64 )
 
@@ -398,7 +459,7 @@ __meta__ = { "_edit_lock_":true }
 
 editor/display_folded = true
 transform/pos = Vector2( 122.482, 50.0444 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 0, 64, 64, 64 )
 
@@ -424,40 +485,11 @@ shape_range = Vector2( 0, 0 )
 trigger = false
 __meta__ = { "_edit_lock_":true }
 
-[node name="Wand" type="Sprite" parent="."]
-
-transform/pos = Vector2( 377.583, 33.301 )
-texture = ExtResource( 1 )
-region = true
-region_rect = Rect2( 64, 192, 64, 64 )
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Wand"]
-
-input/pickable = false
-shapes/0/shape = SubResource( 13 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/0/trigger = false
-collision/layers = 1
-collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-__meta__ = { "_edit_lock_":true }
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wand/StaticBody2D"]
-
-build_mode = 0
-polygon = Vector2Array( -31.6789, -32.2319, 31.4147, -32.2319, 31.7731, 31.5786, -32.0374, 31.5786 )
-shape_range = Vector2( 0, 0 )
-trigger = false
-__meta__ = { "_edit_lock_":true }
-
 [node name="Ausgang-Unten" type="Sprite" parent="."]
 
 editor/display_folded = true
-transform/pos = Vector2( -214.04, 145.983 )
-texture = ExtResource( 1 )
+transform/pos = Vector2( -209.528, 145.081 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 0, 192, 64, 64 )
 
@@ -489,47 +521,11 @@ shape_range = Vector2( 0, 2 )
 trigger = false
 __meta__ = { "_edit_lock_":true }
 
-[node name="Ausgang-Rechts" type="Sprite" parent="."]
-
-editor/display_folded = true
-transform/pos = Vector2( 13.5296, 147.963 )
-texture = ExtResource( 1 )
-region = true
-region_rect = Rect2( 256, 128, 64, 64 )
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Ausgang-Rechts"]
-
-input/pickable = false
-shapes/0/shape = SubResource( 17 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/0/trigger = false
-shapes/1/shape = SubResource( 18 )
-shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/1/trigger = false
-shapes/2/shape = SubResource( 19 )
-shapes/2/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/2/trigger = false
-collision/layers = 1
-collision/mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-__meta__ = { "_edit_lock_":true }
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ausgang-Rechts/StaticBody2D"]
-
-build_mode = 0
-polygon = Vector2Array( -32.0876, -32.424, -32.0876, 32.027, 31.8878, 32.027, 31.8878, 22.0383, -24.0015, 22.2762, -24.0015, -25.5271, 31.65, -25.5271, 31.65, -31.9484 )
-shape_range = Vector2( 0, 2 )
-trigger = false
-__meta__ = { "_edit_lock_":true }
-
 [node name="Ausgang-Oben" type="Sprite" parent="."]
 
 editor/display_folded = true
 transform/pos = Vector2( -90.4341, 148.818 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 192, 128, 64, 64 )
 
@@ -561,11 +557,47 @@ shape_range = Vector2( 0, 2 )
 trigger = false
 __meta__ = { "_edit_lock_":true }
 
+[node name="Ausgang-Rechts" type="Sprite" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 13.5296, 147.963 )
+texture = ExtResource( 2 )
+region = true
+region_rect = Rect2( 256, 128, 64, 64 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Ausgang-Rechts"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 17 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 18 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = false
+shapes/2/shape = SubResource( 19 )
+shapes/2/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/2/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+__meta__ = { "_edit_lock_":true }
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ausgang-Rechts/StaticBody2D"]
+
+build_mode = 0
+polygon = Vector2Array( -32.0876, -32.424, -32.0876, 32.027, 31.8878, 32.027, 31.8878, 22.0383, -24.0015, 22.2762, -24.0015, -25.5271, 31.65, -25.5271, 31.65, -31.9484 )
+shape_range = Vector2( 0, 2 )
+trigger = false
+__meta__ = { "_edit_lock_":true }
+
 [node name="Ausgang-Links" type="Sprite" parent="."]
 
 editor/display_folded = true
 transform/pos = Vector2( 124.81, 147.563 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 128, 128, 64, 64 )
 
@@ -600,8 +632,8 @@ __meta__ = { "_edit_lock_":true }
 [node name="Ausgang-Oben-Unten" type="Sprite" parent="."]
 
 editor/display_folded = true
-transform/pos = Vector2( 210.622, 153.042 )
-texture = ExtResource( 1 )
+transform/pos = Vector2( 209.719, 150.334 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 64, 128, 64, 64 )
 
@@ -642,7 +674,7 @@ __meta__ = { "_edit_lock_":true }
 
 editor/display_folded = true
 transform/pos = Vector2( 13.3428, 218.924 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 region = true
 region_rect = Rect2( 0, 128, 64, 64 )
 
@@ -679,17 +711,10 @@ shape_range = Vector2( 1, 1 )
 trigger = false
 __meta__ = { "_edit_lock_":true }
 
-[node name="Loch" type="Sprite" parent="."]
-
-transform/pos = Vector2( 282.047, 49.4675 )
-texture = ExtResource( 1 )
-region = true
-region_rect = Rect2( 128, 192, 64, 64 )
-
 [node name="TileMap" type="TileMap" parent="."]
 
 mode = 0
-tile_set = ExtResource( 2 )
+tile_set = ExtResource( 4 )
 cell/size = Vector2( 64, 64 )
 cell/quadrant_size = 16
 cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
