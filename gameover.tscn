@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://font/avocado100.fnt" type="BitmapFont" id=1]
+[ext_resource path="res://menu/menu_button_play.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "\n\nfunc _on_TextureButton_pressed():\n\tget_tree().change_scene(\"res://intro/intro.tscn\")\n\tpass # replace with function body\n"
+
+[node name="Node" type="Node"]
+
+script/script = SubResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 92.0
+margin/top = 22.0
+margin/right = 964.0
+margin/bottom = 495.0
+custom_fonts/font = ExtResource( 1 )
+text = "Du hast gewonnen.\nUnd hast dein trauriges \nNerdleben beendet."
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="TextureButton" type="TextureButton" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 338.0
+margin/top = 413.0
+margin/right = 594.0
+margin/bottom = 524.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 2 )
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
+
+
