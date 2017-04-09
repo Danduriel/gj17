@@ -38,6 +38,5 @@ transform/pos = Vector2( 791.126, 671.258 )
 [node name="container" parent="." instance=ExtResource( 4 )]
 
 transform/pos = Vector2( -128.317, 11.1581 )
-priority = 3.0
 
 
