@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=1]
 
-[ext_resource path="res://level1/Konfetti-Boden.res" type="TileSet" id=1]
+[ext_resource path="res://level1/Boden_neu.res" type="TileSet" id=1]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://enemy/enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://container/container.tscn" type="PackedScene" id=4]
@@ -9,7 +9,7 @@
 
 [node name="TileMap" type="TileMap" parent="."]
 
-transform/pos = Vector2( 42.515, 297.62 )
+transform/pos = Vector2( 41.515, 296.62 )
 z/z = -4
 mode = 0
 tile_set = ExtResource( 1 )
@@ -33,6 +33,7 @@ transform/pos = Vector2( 311.284, 205.843 )
 
 [node name="enemys" type="Container" parent="."]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
