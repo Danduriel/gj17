@@ -1,0 +1,214 @@
+[gd_scene load_steps=10 format=1]
+
+[ext_resource path="res://player/inventory.png" type="Texture" id=1]
+[ext_resource path="res://inventory/inventory.tscn" type="PackedScene" id=2]
+[ext_resource path="res://inventory/white.png" type="Texture" id=3]
+[ext_resource path="res://player/icon.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Hintergrund/PNG/zusammen2.png" type="Texture" id=5]
+[ext_resource path="res://sounfs/puff1.ogg" type="AudioStream" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends RigidBody2D\n\nvar WALK_ACCEL = 800.0\nvar WALK_DEACCEL = 800.0\nvar START_WALK_MAX_VELOCITY = 200.0\nvar WALK_MAX_VELOCITY = 200.0\n\nvar receiveDamage = 0\nvar MAX_HEALTH = 100\nvar health = MAX_HEALTH\n\nvar player_size\nvar bullet = preload(\"res://bullet/bullet.tscn\")\n\n#is the player currently shooting\?\nvar shooting = false\nvar shoot_time = 1e20\n\nvar direction = Vector2(1.0, 0.0) #right\n\nfunc _ready():\n\t# Called every time the node is added to the scene.\n\t# Initialization here\n\tplayer_size = get_node(\"player\").get_texture().get_size()\n\tget_node(\"cl0/inventory\").hide()\n\tget_node(\"cl0/lifebar\").set_max(MAX_HEALTH)\n\t#get_node(\"cl0/inventory_button\").hide()\n\t#get_node(\"player\").show()\n\t\n\tset_fixed_process(true)\n\nfunc _fixed_process(delta):\n\t\n\tif(receiveDamage > 0):\n\t\t#print(receiveDamage *delta)\n\t\t#print (health)\n\t\thealth -= receiveDamage *delta\n\t\tget_node(\"cl0/lifebar\").set_value(health)\n\t\tif(health < 0):\n\t\t\tget_tree().change_scene(\"res://gameover.tscn\")\n\tvar angle = atan2(direction.x,direction.y)\n\tget_node(\"player\").set_rot(angle)\n\nfunc _integrate_forces(s):\n\tvar speedup = 0\n\tvar damage = 0\n\tvar weaponrange = 0\n\tspeedup = get_node(\"cl0/inventory\").getStats()[0]\n\t#print (speedup)\n\tWALK_MAX_VELOCITY = START_WALK_MAX_VELOCITY + speedup * 20\n\t\n\t#print (WALK_MAX_VELOCITY)\n\t\n\tvar lv = s.get_linear_velocity()\n\tvar step = s.get_step()\n\t\n\t#Inputs\n\tvar move_left = Input.is_action_pressed(\"move_left\")\n\tvar move_right = Input.is_action_pressed(\"move_right\")\n\tvar move_up = Input.is_action_pressed(\"move_up\")\n\tvar move_down = Input.is_action_pressed(\"move_down\")\n\tvar shoot = Input.is_action_pressed(\"shoot\")\n\n\tvar player_rect = Rect2( get_node(\"player\").get_pos() - player_size*0.5, player_size )\n\tvar player_pos = get_node(\"player\").get_pos()\n\t\n\t#Shooting\n\tif(shoot and not shooting):\n\t\tget_node(\"shoot\").play()\n\t\tshoot_time = 0\n\t\tvar bi = bullet.instance()\n\t\tvar pos = get_pos() + get_node(\"bullet_shoot\").get_pos()\n\t\t\n\t\tbi.set_pos(pos)\n\t\tget_parent().add_child(bi)\n\t\t\n\t\tbi.set_linear_velocity(direction * 320)\n\t\t#get_node(\"sprite/smoke\").set_emitting(true)\n\t\t#get_node(\"sound\").play(\"shoot\")\n\t\tPS2D.body_add_collision_exception(bi.get_rid(), get_rid()) # Make bullet and this not collide\n\telse:\n\t\tshoot_time += step\n\n\t# MOVING \n\tif (move_left and not move_right): #left\n\t\tif (lv.x > -WALK_MAX_VELOCITY):\n\t\t\tlv.x -= WALK_ACCEL*step\n\t\tdirection = Vector2(-1.0, 0.0)\n\telif (move_right and not move_left): #right\n\t\tif (lv.x < WALK_MAX_VELOCITY):\n\t\t\tlv.x += WALK_ACCEL*step\n\t\tdirection = Vector2(1.0, 0.0)\n\telif (move_down and not move_up): #down\n\t\tif (lv.y < WALK_MAX_VELOCITY):\n\t\t\tlv.y += WALK_ACCEL*step\n\t\tdirection = Vector2(0.0, 1.0)\n\telif (move_up and not move_down): #up\n\t\tif (lv.y > -WALK_MAX_VELOCITY):\n\t\t\tlv.y -= WALK_ACCEL*step\n\t\tdirection = Vector2(0.0, -1.0)\n\telse: #Getting the player to stand still again\n\t\t\tvar xv = abs(lv.x)\n\t\t\tvar yv = abs(lv.y)\n\t\t\t\n\t\t\txv -= WALK_DEACCEL*step\n\t\t\tif (xv < 0):\n\t\t\t\txv = 0\n\t\t\tlv.x = sign(lv.x)*xv\n\t\t\t\n\t\t\tyv -= WALK_DEACCEL*step\n\t\t\tif (yv < 0):\n\t\t\t\tyv = 0\n\t\t\tlv.y = sign(lv.y)*yv\n\t\t\t\n\tshooting = shoot\n\ts.set_linear_velocity(lv)\n\nfunc showInventory():\n\tget_node(\"cl0/inventory\").show()\n\nfunc _on_inventory_pressed():\n\t#get_node(\"cl0/inventory_button\").hide()\n\tshowInventory()\n\t#hide()\n\t#print(\"inventory\")\n\tpass # replace with function body\n\n\nfunc _on_player_body_enter( body ):\n\tprint(\"player collision\")\n\tpass # replace with function body\n\n\nfunc _on_Area2D_body_enter( body ):\n\tif(body.is_in_group(\"enemy\")):\n\t\tenemyCollision(body,1)\n\telif(body.is_in_group(\"container\")):\n\t\tshowInventory()\n\t\tget_node(\"box\").play()\n\t\tget_node(\"cl0/inventory\").addRandomItem()\n\t\tbody.free()\n\tpass # replace with function body\n\nfunc _on_Area2D_body_exit( body ):\n\tif(body.is_in_group(\"enemy\")):\n\t\tenemyCollision(body,-1)\n\tpass # replace with function body\n\n#add = [1,-1]\nfunc enemyCollision(enemy,add):\n\treceiveDamage += enemy.getDamage() *add\n\n\nfunc _on_Area2D_area_enter( body ):\n\tif(body.is_in_group(\"enemy\")):\n\t\tenemyCollision(body,1)\n\telif(body.is_in_group(\"container\")):\n\t\t#showInventory()\n\t\tget_node(\"cl0/inventory\").addRandomItem()\n\t\tbody.free()\n\tpass # replace with function body\n"
+
+[sub_resource type="StyleBoxTexture" id=3]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 4 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[node name="player" type="RigidBody2D"]
+
+transform/pos = Vector2( 555.428, 297.246 )
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 2.54114, 0, 0, 2.53377, -555.668, -296.981 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+mode = 2
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = SubResource( 2 )
+
+[node name="cl0" type="CanvasLayer" parent="."]
+
+layer = 3
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="inventory_button" type="TextureButton" parent="cl0"]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -416.0
+margin/top = 273.0
+margin/right = -476.0
+margin/bottom = 213.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 1 )
+
+[node name="inventory" parent="cl0" instance=ExtResource( 2 )]
+
+editor/display_folded = true
+visibility/visible = false
+
+[node name="bg" type="Sprite" parent="cl0/inventory"]
+
+visibility/opacity = 0.3
+transform/pos = Vector2( 497.207, 285.897 )
+transform/scale = Vector2( 17.5736, 10.5299 )
+z/z = -1
+texture = ExtResource( 3 )
+
+[node name="lifebar" type="ProgressBar" parent="cl0"]
+
+visibility/opacity = 0.8
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 672.0
+margin/top = 39.0
+margin/right = 909.0
+margin/bottom = 66.0
+custom_styles/fg = SubResource( 3 )
+custom_colors/font_color = Color( 0.96875, 0.930908, 0.930908, 1 )
+custom_colors/font_color_shadow = Color( 1, 0.0195312, 0.0195312, 1 )
+range/min = 0.0
+range/max = 1000.0
+range/step = 0.1
+range/page = 0.0
+range/value = 1000.0
+range/exp_edit = false
+range/rounded = true
+percent/visible = true
+
+[node name="player" type="Sprite" parent="."]
+
+transform/pos = Vector2( -555.263, -297.351 )
+transform/scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 5 )
+region = true
+region_rect = Rect2( 0, 256, 64, 64 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( -555.668, -296.981 )
+transform/scale = Vector2( 2.54114, 2.53377 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="camera" type="Camera2D" parent="."]
+
+transform/pos = Vector2( -555.257, -297.328 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -1000000
+limit/top = -1000000
+limit/right = 1000000
+limit/bottom = 1000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = true
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+[node name="Area2D" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 2.56866, 0, 0, 2.56121, -555.393, -296.862 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+transform/pos = Vector2( -555.393, -296.862 )
+transform/scale = Vector2( 2.56866, 2.56121 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="bullet_shoot" type="Position2D" parent="."]
+
+material/use_parent = true
+transform/pos = Vector2( -555.263, -297.351 )
+
+[node name="shoot" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 6 )
+stream/play = false
+stream/loop = false
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
+[node name="box" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 6 )
+stream/play = false
+stream/loop = false
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+stream/loop_restart_time = 0.0
+stream/buffering_ms = 500
+
+[connection signal="pressed" from="cl0/inventory_button" to="." method="_on_inventory_pressed"]
+
+[connection signal="area_enter" from="Area2D" to="." method="_on_Area2D_area_enter"]
+
+[connection signal="body_enter" from="Area2D" to="." method="_on_Area2D_body_enter"]
+
+[connection signal="body_exit" from="Area2D" to="." method="_on_Area2D_body_exit"]
+
+
